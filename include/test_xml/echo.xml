@@ -1,0 +1,6 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:fu="http://www.fu.gov.si/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <fu:EchoRequest>test 1</fu:EchoRequest>
+   </soapenv:Body>
+</soapenv:Envelope>

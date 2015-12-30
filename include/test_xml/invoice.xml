@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:fu="http://www.fu.gov.si/" xmlns:xd="http://www.w3.org/2000/09/xmldsig#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<soapenv:Header />
+	<soapenv:Body>
+		<fu:InvoiceRequest Id="test">
+			<fu:Header>
+				<fu:MessageID>4e64a93a-40fa-4c02-afb1-488534b85e4c</fu:MessageID>
+				<fu:DateTime>2015-08-07T13:05:24</fu:DateTime>
+			</fu:Header>
+			<fu:Invoice>
+				<fu:TaxNumber>99999862</fu:TaxNumber>
+				<fu:IssueDateTime>2015-08-07T13:05:24</fu:IssueDateTime>
+				<fu:NumberingStructure>B</fu:NumberingStructure>
+				<fu:InvoiceIdentifier>
+					<fu:BusinessPremiseID>TRGOVINA1</fu:BusinessPremiseID>
+					<fu:ElectronicDeviceID>BLAG2</fu:ElectronicDeviceID>
+					<fu:InvoiceNumber>145</fu:InvoiceNumber>
+				</fu:InvoiceIdentifier>
+				<fu:InvoiceAmount>66.71</fu:InvoiceAmount>
+				<fu:PaymentAmount>1047.76</fu:PaymentAmount>
+				<fu:TaxesPerSeller>
+					<fu:VAT>
+						<fu:TaxRate>22.00</fu:TaxRate>
+						<fu:TaxableAmount>23.14</fu:TaxableAmount>
+						<fu:TaxAmount>5.09</fu:TaxAmount>
+					</fu:VAT>
+					<fu:VAT>
+						<fu:TaxRate>9.50</fu:TaxRate>
+						<fu:TaxableAmount>35.14</fu:TaxableAmount>
+						<fu:TaxAmount>3.34</fu:TaxAmount>
+					</fu:VAT>
+				</fu:TaxesPerSeller>
+				<fu:OperatorTaxNumber>12345678</fu:OperatorTaxNumber>
+				<fu:ProtectedID>34905bcff14b381039af2e9d7eee54bb</fu:ProtectedID>
+			</fu:Invoice>
+		<Signature xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" /><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256" /><Reference URI="#test"><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" /><DigestValue>H+6rPvK6ekMSDKNEzwxyoD5ewA0br2owR+1rFUrzlBE=</DigestValue></Reference></SignedInfo><SignatureValue>QCZyHtQi3PF7sFS0/vlbaHy1kNUr7B/SII6eqT9sUznm8Zm7xGu88J+Kvqei7lC/YhxIXoLPVay7Y+9dPM729GPaldETkWEZaiPXhHIuWT/0VfPohFW7qet5Ar4N2uvtKygztiOtjABl3jPacrdjgqERbIjc/bF3q8dEOHqcKn/i6TVorObDEXnA0ZmAdmr4Q11f3nxo7P6dDaLmZzhvmNGniHN/B+NmAaZcb2d/NmQnSCn1GB58y42rgka/LoltL0iN9gqyRgnoV4QXLkJj7tRsXTMywmZqKaa5F8VIlx6mvgw5rhkBSVU5Qnu+2qg6v0kfR46Tpm7vIodR8YkTsw==</SignatureValue><KeyInfo><X509Data><X509IssuerSerial><X509IssuerName>CN=Tax CA Test, O=state-institutions, C=SI</X509IssuerName><X509SerialNumber>2575988469811686647</X509SerialNumber></X509IssuerSerial><X509SubjectName>CN="ITM STORITVE, ŠPELA PERGAR S.P.", SERIALNUMBER=1, OU=99999862, OU=DavPotRacTEST, O=state-institutions, C=SI</X509SubjectName></X509Data></KeyInfo></Signature></fu:InvoiceRequest>
+	</soapenv:Body>
+</soapenv:Envelope>

@@ -1,0 +1,35 @@
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:fu="http://www.fu.gov.si/" xmlns:xd="http://www.w3.org/2000/09/xmldsig#">
+  <SOAP-ENV:Body>
+    <fu:BusinessPremiseRequest Id="test">
+      <fu:Header>
+        <fu:MessageID>004464d8-8cd0-47a9-9445-9c28a1dd6230</fu:MessageID>
+        <fu:DateTime>2015-09-18T08:07:55</fu:DateTime>
+      </fu:Header>
+      <fu:BusinessPremise>
+        <fu:TaxNumber>10041052</fu:TaxNumber>
+        <fu:BusinessPremiseID>TRGOVINA1</fu:BusinessPremiseID>
+        <fu:BPIdentifier>
+          <fu:RealEstateBP>
+            <fu:PropertyID>
+              <fu:CadastralNumber>365</fu:CadastralNumber>
+              <fu:BuildingNumber>12</fu:BuildingNumber>
+              <fu:BuildingSectionNumber>3</fu:BuildingSectionNumber>
+            </fu:PropertyID>
+            <fu:Address>
+              <fu:Street>Cankarjeva</fu:Street>
+              <fu:HouseNumber>12</fu:HouseNumber>
+              <fu:HouseNumberAdditional>A</fu:HouseNumberAdditional>
+              <fu:Community>Ljubljana</fu:Community>
+              <fu:City>Ljubljana</fu:City>
+              <fu:PostalCode>1000</fu:PostalCode>
+            </fu:Address>
+          </fu:RealEstateBP>
+        </fu:BPIdentifier>
+        <fu:ValidityDate>1990-08-25</fu:ValidityDate>
+        <fu:SoftwareSupplier>
+          <fu:TaxNumber>42839521</fu:TaxNumber>
+        </fu:SoftwareSupplier>
+      </fu:BusinessPremise>
+    <Signature xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" /><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256" /><Reference URI="#test"><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" /><DigestValue>4Nbm+rDcS9VTvgh157wD87iVCNZ/E8yFRnnlaK6Huzg=</DigestValue></Reference></SignedInfo><SignatureValue>AlatazD7NTKiMTB3KkSzybbQsbvEDmK924dEh/OrbnH1SOFKIVwCAY7Uq/n4pBcyHgOTrps5HGMWj0YcFYxoCgvaPVDJM5uvZNhnrvNIotWHoFzyifVl2jNiZEuc/+iDJywDji+OOc5mFu/RL7aDIfjFrw99xM2rJui0CC8AiU/fVwDTNSsy0PW3iRIgwqsR8E+f90ByVY4xsYM3GQw66ET/Mo/QWG1O5vUQ3F5TkJE1O5/jw3k+m7FYMIFUqNRtlx0sOm4UfmEWY+69uQMp0QPm64wKydsbm1f5NiriHqj7llmTMl7e9ZMZCy8GH/15oNLSfgSimUaqLB6ASlkiig==</SignatureValue><KeyInfo><X509Data><X509IssuerSerial><X509IssuerName>CN=Tax CA Test, O=state-institutions, C=SI</X509IssuerName><X509SerialNumber>6272978640195208819</X509SerialNumber></X509IssuerSerial><X509SubjectName>CN=TESTNO PODJETJE 108, SERIALNUMBER=1, OU=10041052, OU=DavPotRacTEST, O=state-institutions, C=SI</X509SubjectName></X509Data></KeyInfo></Signature></fu:BusinessPremiseRequest>
+  </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
