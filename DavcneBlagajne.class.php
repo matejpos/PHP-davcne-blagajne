@@ -1,5 +1,24 @@
 <?php
 
+/*
+* DavcneBlagajne.class.php 1.0
+*
+* DavcneBlagajne.class.php is distributed under GPL 3
+* Copyright (C) 2015 Matej Posinković <matej dot posinkovic at gmail dot com>
+*
+* This library is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public
+* License as published by the Free Software Foundation; either
+* version 3 of the License, or any later version.
+*
+* This library is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+* Lesser General Public License for more details [http://www.gnu.org/licenses/gpl-3.0.en.html]
+* 
+*/
+
+
 	require_once 'include/lib/xmlseclibs/xmlseclibs.php';
 	require_once 'include/lib/phpqrcode/phpqrcode.php';
 	
