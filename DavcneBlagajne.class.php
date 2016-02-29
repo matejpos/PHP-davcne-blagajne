@@ -1,31 +1,12 @@
 <?php
 
-/*
-* DavcneBlagajne.class.php 1.0
-*
-* DavcneBlagajne.class.php is distributed under GPL 3
-* Copyright (C) 2015 Matej Posinković <matej dot posinkovic at gmail dot com>
-*
-* This library is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or any later version.
-*
-* This library is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-* Lesser General Public License for more details [http://www.gnu.org/licenses/gpl-3.0.en.html]
-* 
-*/
-
-
-	require_once 'include/lib/xmlseclibs/xmlseclibs.php';
-	require_once 'include/lib/phpqrcode/phpqrcode.php';
+	require_once __CORE_OPENPROF_ROOT__.'include/library/xmlseclibs/xmlseclibs.php';
+	require_once __CORE_OPENPROF_ROOT__.'include/library/phpqrcode/phpqrcode.php';
 	
 	use RobRichards\XMLSecLibs\XMLSecurityDSig;
 	use RobRichards\XMLSecLibs\XMLSecurityKey;
 	
-	// official documentation available on
+	// official documentation at
 	// http://www.datoteke.fu.gov.si/dpr/index.html
 
 	class DavcneBlagajne
@@ -52,25 +33,25 @@
 		
 		public function __construct()
 		{
-			$this->qrDirPath							= 'include/qr/';
-			$this->testXMLPath							= 'include/test_xml/';
-			$this->certsPath							= 'include/certs/';
-			$this->myCertificatePathPem					= $this->certsPath.'YOUR-CERTIFICATE-FILE-NAME.pem';
-			$this->myCertificatePathP12					= $this->certsPath.'YOUR-CERTIFICATE-FILE-NAME.p12';
-			$this->myCertificatePassword				= 'YOUR-CERTIFICATE-PASSWORD';
+			$this->qrDirPath							= OpenProfGlobal::getLocalROOT().'include/furs/qr/';
+			$this->testXMLPath							= OpenProfGlobal::getLocalROOT().'include/furs/test_xml/';
+			$this->certsPath							= OpenProfGlobal::getLocalROOT().'include/furs/certs/';
+			$this->myCertificatePathPem					= $this->certsPath.'20070691-2.pem';
+			$this->myCertificatePathP12					= $this->certsPath.'20070691-2.p12';
+			$this->myCertificatePassword				= 'KDWBHTMFBOJ6';
 			$this->fursCertificatePath					= $this->certsPath.'sigov-ca.pem';
-			$this->companyTaxNum 						= 'YOUR-COMPANY-TAX-NUMBER';
-			$this->softwareSupplierTaxNum 				= 'YOUR-SOFTWARE-SUPPLIER-TAX-NUMBER';
+			$this->companyTaxNum 						= '20070691';
+			$this->softwareSupplierTaxNum 				= '20070691';
 			$this->url2post 							= 'https://blagajne.fu.gov.si:9003/v1/cash_registers';
 		}
 		
 		public function setTestMode()
 		{
-			$this->myCertificatePathPem					= $this->certsPath.'YOUR-TEST-CERTIFICATE-FILE-NAME.pem';
-			$this->myCertificatePathP12					= $this->certsPath.'YOUR-TEST-CERTIFICATE-FILE-NAME.p12';
-			$this->myCertificatePassword				= 'YOUR-TEST-CERTIFICATE-PASSWORD';
-			$this->fursCertificatePath					= $this->certsPath.'FURS-TEST-CERTIFICATE-FILE-NAME.pem';
-			$this->companyTaxNum 						= 'TEST-COMPANY-TAX-NUMBER';
+			$this->myCertificatePathPem					= $this->certsPath.'10368981-1.pem';
+			$this->myCertificatePathP12					= $this->certsPath.'10368981-1.p12';
+			$this->myCertificatePassword				= 'I3EUI3SR57WL';
+			$this->fursCertificatePath					= $this->certsPath.'furs-server-test.pem';
+			$this->companyTaxNum 						= '10368981';
 			$this->url2post 							= 'https://blagajne-test.fu.gov.si:9002/v1/cash_registers';
 		}
 		
@@ -100,7 +81,7 @@
 						'childs' => array(
 							0 => array(
 								'name' => 'fu:EchoRequest',
-								'value' => 'dela?'
+								'value' => 'vrni x'
 							)
 						)
 					)
@@ -237,6 +218,11 @@
 			if(isset($this->data['SubsequentSubmit'])) $subsequentSubmitArray = array('name' => 'fu:SubsequentSubmit', 'value' => $this->data['SubsequentSubmit']);
 			else $subsequentSubmitArray = array();
 			
+			// get ZOI
+			// get ZOI
+				
+			$this->zoi = $this->generateZOI();
+			
 			// set parameters
 			// set parameters
 			
@@ -337,7 +323,7 @@
 					),
 					8 => array(
 						'name' => 'fu:ProtectedID',
-						'value' => md5($this->data['OperatorTaxNumber'])
+						'value' => $this->zoi
 					),
 					9 => $subsequentSubmitArray
 				)
@@ -441,10 +427,14 @@
 		{
 			// set data
 			// set data
-
+			
+			// IssueDateTime in xml scheme is	YYYY-MM-DDTHH:MM:SS
+			// IssueDateTime in zoi is 			DD.MM.YYYY HH:MM:SS
+			
 			$businessPremiseID = '1';
 			$electronicDeviceID = '1';
-			$signData = $this->companyTaxNum.$this->data['IssueDateTime'].$this->data['InvoiceNumber'].$businessPremiseID.$electronicDeviceID.$this->data['InvoiceAmount'];
+			$newIssueDateTime = date("d.m.Y H:i:s", strtotime($this->data['IssueDateTime']));
+			$signData = $this->companyTaxNum.$newIssueDateTime.$this->data['InvoiceNumber'].$businessPremiseID.$electronicDeviceID.$this->data['InvoiceAmount'];
 			
 			// create signature
 			// create signature
@@ -573,11 +563,6 @@
 					$xpath = new DOMXPath($doc);
 					$nodeset = $xpath->query("//fu:UniqueInvoiceID")->item(0);
 					$this->eor = $nodeset->nodeValue;
-						
-					// get ZOI
-					// get ZOI
-					
-					$this->zoi = $this->generateZOI();
 				}
 			}
 			else var_dump(curl_error($conn));
@@ -622,16 +607,21 @@
 			// DATETIME number
 			// DATETIME number
 			
-			$dataNumber = str_replace('T', '', $this->data['IssueDateTime']);
-			$dataNumber = str_replace(':', '', $dataNumber);
-			$dataNumber = str_replace('-', '', $dataNumber);
+			$tmpNum = explode('T', $this->data['IssueDateTime']);
+			$tmpDate = explode('-', $tmpNum[0]);
+				
+			$dateTimeNumber = $tmpDate[2];
+			$dateTimeNumber .= $tmpDate[1];
+			$dateTimeNumber .= substr($tmpDate[0], 2);
+			$dateTimeNumber .= $tmpNum[1];
+			$dateTimeNumber = str_replace(':', '', $dateTimeNumber);
 			
-			$invoice_year = substr($dataNumber, 0, 4);
-			
+			$invoice_year = $tmpDate[0];
+
 			// calculate controll number
 			// calculate controll number
 			
-			$qrCode = $zoiDecimal.$this->companyTaxNum.$dataNumber;
+			$qrCode = $zoiDecimal.$this->companyTaxNum.$dateTimeNumber;
 			$controlChar =  array_sum(str_split($qrCode)) % 10;
 			
 			// get QR code
@@ -639,6 +629,20 @@
 			
 			$qrCode = $qrCode.$controlChar;
 			QRcode::png($qrCode, $this->qrDirPath.'qr-'.$invoice_year.'-'.$this->data['InvoiceNumber'].'.png');
+		}
+		
+		/*
+		 * QR manipulation, for testing purposes; as it is called from outside it can be arbitrarily changed
+		 */
+		
+		public function generateQRTest($dateTime, $zoi, $invoice_number)
+		{
+			/*
+			$this->zoi = $zoi;
+			$this->data = array('IssueDateTime' => $dateTime, 'InvoiceNumber' => $invoice_number);
+			
+			$this->generateQR();
+			*/
 		}
 		
 		public function getZOI()
