@@ -585,7 +585,7 @@
 			// generate only in case of invoice declaration
 			// generate only in case of invoice declaration
 			
-			if(!isset( $this->data['IssueDateTime'])) return;
+			if(!isset($this->data['IssueDateTime'])) return;
 			
 			// QR code is made of:
 			// 39 chars of decimal ZOI code
@@ -609,10 +609,10 @@
 			
 			$tmpNum = explode('T', $this->data['IssueDateTime']);
 			$tmpDate = explode('-', $tmpNum[0]);
-				
-			$dateTimeNumber = $tmpDate[2];
+			
+			$dateTimeNumber = substr($tmpDate[0], 2);
 			$dateTimeNumber .= $tmpDate[1];
-			$dateTimeNumber .= substr($tmpDate[0], 2);
+			$dateTimeNumber .= $tmpDate[2];
 			$dateTimeNumber .= $tmpNum[1];
 			$dateTimeNumber = str_replace(':', '', $dateTimeNumber);
 			
@@ -635,12 +635,13 @@
 		 * QR manipulation, for testing purposes; as it is called from outside it can be arbitrarily changed
 		 */
 		
-		public function generateQRTest($dateTime, $zoi, $invoice_number)
+		public function generateQRTest($id_invoice)
 		{
 			/*
-			$this->zoi = $zoi;
-			$this->data = array('IssueDateTime' => $dateTime, 'InvoiceNumber' => $invoice_number);
-			
+			$this->zoi = ...;
+			$dateTime = ...;
+			$invoiceNumber = ...;
+			$this->data = array('IssueDateTime' => $dateTime, 'InvoiceNumber' => $invoiceNumber);
 			$this->generateQR();
 			*/
 		}
