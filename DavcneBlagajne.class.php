@@ -36,22 +36,22 @@
 			$this->qrDirPath							= OpenProfGlobal::getLocalROOT().'include/furs/qr/';
 			$this->testXMLPath							= OpenProfGlobal::getLocalROOT().'include/furs/test_xml/';
 			$this->certsPath							= OpenProfGlobal::getLocalROOT().'include/furs/certs/';
-			$this->myCertificatePathPem					= $this->certsPath.'20070691-2.pem';
-			$this->myCertificatePathP12					= $this->certsPath.'20070691-2.p12';
-			$this->myCertificatePassword				= 'KDWBHTMFBOJ6';
+			$this->myCertificatePathPem					= $this->certsPath.'XXXXX-2.pem';
+			$this->myCertificatePathP12					= $this->certsPath.'XXXXX-2.p12';
+			$this->myCertificatePassword				= 'XXXXX';
 			$this->fursCertificatePath					= $this->certsPath.'sigov-ca.pem';
-			$this->companyTaxNum 						= '20070691';
-			$this->softwareSupplierTaxNum 				= '20070691';
+			$this->companyTaxNum 						= 'XXXXX';
+			$this->softwareSupplierTaxNum 				= 'XXXXX';
 			$this->url2post 							= 'https://blagajne.fu.gov.si:9003/v1/cash_registers';
 		}
 		
 		public function setTestMode()
 		{
-			$this->myCertificatePathPem					= $this->certsPath.'10368981-1.pem';
-			$this->myCertificatePathP12					= $this->certsPath.'10368981-1.p12';
-			$this->myCertificatePassword				= 'I3EUI3SR57WL';
+			$this->myCertificatePathPem					= $this->certsPath.'XXXXX-1.pem';
+			$this->myCertificatePathP12					= $this->certsPath.'XXXXX-1.p12';
+			$this->myCertificatePassword				= 'XXXXX';
 			$this->fursCertificatePath					= $this->certsPath.'furs-server-test.pem';
-			$this->companyTaxNum 						= '10368981';
+			$this->companyTaxNum 						= 'XXXXX';
 			$this->url2post 							= 'https://blagajne-test.fu.gov.si:9002/v1/cash_registers';
 		}
 		
